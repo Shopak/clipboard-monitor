@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مراقب النسخ ولقطات الشاشة</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogItin2YXYsdin2YLYqCDYp9mE2YbYs9iuINmI2YTZgtit2KfYqiDYp9mE2LTYp9i02KkiLAogICJzaG9ydF9uYW1lIjogItin2YXYsdin2YLYqCDYp9mE2YbYs9iuIiwKICAiZGVzY3JpcHRpb24iOiAi2KrYt9io2YrZgiDZhNmF2LHYp9mC2KjYqSDYp9mE2YbYtdmI2LUg2YjYp9mE2LXZiNixINin2YTZhdmG2LPZiNiu2KkiLAogICJzdGFydF91cmwiOiAiLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzY2N2VlYSIsCiAgInRoZW1lX2NvbG9yIjogIiM2NjdlZWEiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCw8c3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDEwMCAxMDAnPjxjaXJjbGUgY3g9JzUwJyBjeT0nNTAnIHI9JzQwJyBmaWxsPSclMjM2NjdlZWEnLz48dGV4dCB4PSc1MCcgeT0nNTUnIHRleHQtYW5jaG9yPSdtaWRkbGUnIGZpbGw9J3doaXRlJyBmb250LXNpemU9JzIwJz7wn5OLPC90ZXh0Pjwvc3ZnPiIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLDxzdmcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB2aWV3Qm94PScwIDAgMTAwIDEwMCc+PGNpcmNsZSBjeD0nNTAnIGN5PSc1MCcgcj0nNDAnIGZpbGw9JyUyMzY2N2VlYScvPjx0ZXh0IHg9JzUwJyB5PSc1NScgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnIGZvbnQtc2l6ZT0nMjAnPvCfk4s8L3RleHQ+PC9zdmc+IiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="مراقب النسخ">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23667eea'/><text x='50' y='55' text-anchor='middle' fill='white' font-size='20'>📋</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .app-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .main-interface {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+        }
+
+        .status-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #f0f2f5, #ffffff);
+            border-radius: 15px;
+            border: 2px solid #e1e8ed;
+        }
+
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-active {
+            background: #4CAF50;
+        }
+
+        .status-inactive {
+            background: #f44336;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .control-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #2196F3, #1976D2);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .window {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .window.active {
+            display: block;
+        }
+
+        .window-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .window-title {
+            font-size: 1.8em;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            border: 1px solid #dee2e6;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            direction: rtl;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+        }
+
+        .content-area {
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .content-item {
+            background: white;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .content-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .content-item.selected {
+            background: linear-gradient(45deg, #e3f2fd, #f3e5f5);
+            border: 2px solid #4CAF50;
+        }
+
+        .item-text {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            word-wrap: break-word;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .item-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .item-image:hover {
+            transform: scale(1.05);
+        }
+
+        .item-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-copy {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-edit {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn-small:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .item-timestamp {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .sort-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        /* إضافة أيقونات بسيطة */
+        .icon {
+            margin-left: 8px;
+            font-style: normal;
+        }
+
+        /* تحسين التصميم المتجاوب */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 10px;
+            }
+            
+            .control-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .toolbar {
+                flex-direction: column;
+            }
+            
+            .item-controls {
+                justify-content: center;
+            }
+        }
+
+        /* تحسين شريط التمرير */
+        .content-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .content-area::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .content-area::-webkit-scrollbar-thumb {
+            background: #4CAF50;
+            border-radius: 4px;
+        }
+
+        .content-area::-webkit-scrollbar-thumb:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <button class="language-toggle" onclick="toggleLanguage()" id="langToggle">English</button>
+    
+    <div class="app-container">
+        <div class="header">
+            <h1 id="appTitle">مراقب النسخ ولقطات الشاشة</h1>
+            <p id="appSubtitle">تطبيق شامل لمراقبة وإدارة العناصر المنسوخة</p>
+        </div>
+
+        <!-- الواجهة الرئيسية -->
+        <div id="mainInterface" class="main-interface">
+            <div class="status-section">
+                <h2 id="statusTitle">حالة المراقبة</h2>
+                <p id="statusText">
+                    <span class="status-indicator" id="statusIndicator"></span>
+                    <span id="statusLabel">غير نشط</span>
+                </p>
+            </div>
+
+            <div class="control-buttons">
+                <button class="btn btn-primary" onclick="toggleMonitoring()" id="monitorBtn">
+                    <span class="icon">🔍</span>
+                    <span id="monitorBtnText">تفعيل المراقبة</span>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="showTextWindow()">
+                    <span class="icon">📝</span>
+                    <span id="textBtnText">النصوص المنسوخة</span>
+                </button>
+                
+                <button class="btn btn-secondary" onclick="showImageWindow()">
+                    <span class="icon">🖼️</span>
+                    <span id="imageBtnText">الصور المنسوخة</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- نافذة النصوص المنسوخة -->
+        <div id="textWindow" class="window">
+            <div class="window-header">
+                <h2 class="window-title" id="textWindowTitle">النصوص المنسوخة</h2>
+                <button class="back-btn" onclick="showMainInterface()" id="backBtn1">العودة</button>
+            </div>
+
+            <div class="toolbar">
+                <input type="text" class="search-box" id="textSearch" placeholder="البحث في النصوص...">
+                <button class="btn btn-small btn-secondary" onclick="selectAllTexts()" id="selectAllTextsBtn">تحديد الكل</button>
+                <button class="btn btn-small btn-copy" onclick="copySelectedTexts()" id="copySelectedTextsBtn">نسخ المحدد</button>
+                <button class="btn btn-small btn-delete" onclick="deleteSelectedTexts()" id="deleteSelectedTextsBtn">حذف المحدد</button>
+                <button class="btn btn-small btn-primary" onclick="refreshTexts()" id="refreshTextsBtn">تحديث</button>
+                <div class="sort-controls">
+                    <button class="btn btn-small" onclick="sortTexts('asc')" id="sortTextsAscBtn">الأقدم أولاً</button>
+                    <button class="btn btn-small" onclick="sortTexts('desc')" id="sortTextsDescBtn">الأحدث أولاً</button>
+                </div>
+            </div>
+
+            <div class="content-area" id="textContent">
+                <div class="empty-state">
+                    <div class="icon">📝</div>
+                    <p id="noTextsMessage">لا توجد نصوص منسوخة بعد</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- نافذة الصور المنسوخة -->
+        <div id="imageWindow" class="window">
+            <div class="window-header">
+                <h2 class="window-title" id="imageWindowTitle">الصور المنسوخة</h2>
+                <button class="back-btn" onclick="showMainInterface()" id="backBtn2">العودة</button>
+            </div>
+
+            <div class="toolbar">
+                <input type="text" class="search-box" id="imageSearch" placeholder="البحث في الصور...">
+                <button class="btn btn-small btn-secondary" onclick="selectAllImages()" id="selectAllImagesBtn">تحديد الكل</button>
+                <button class="btn btn-small btn-copy" onclick="copySelectedImages()" id="copySelectedImagesBtn">نسخ المحدد</button>
+                <button class="btn btn-small btn-delete" onclick="deleteSelectedImages()" id="deleteSelectedImagesBtn">حذف المحدد</button>
+                <button class="btn btn-small btn-primary" onclick="refreshImages()" id="refreshImagesBtn">تحديث</button>
+                <div class="sort-controls">
+                    <button class="btn btn-small" onclick="sortImages('asc')" id="sortImagesAscBtn">الأقدم أولاً</button>
+                    <button class="btn btn-small" onclick="sortImages('desc')" id="sortImagesDescBtn">الأحدث أولاً</button>
+                </div>
+            </div>
+
+            <div class="content-area" id="imageContent">
+                <div class="empty-state">
+                    <div class="icon">🖼️</div>
+                    <p id="noImagesMessage">لا توجد صور منسوخة بعد</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // متغيرات عامة
+        let isMonitoring = false;
+        let currentLanguage = 'ar';
+        let copiedTexts = [];
+        let copiedImages = [];
+        let textIdCounter = 1;
+        let imageIdCounter = 1;
+        let monitoringInterval;
+        let screenshotInterval;
+
+        // ترجمات التطبيق
+        const translations = {
+            ar: {
+                appTitle: 'مراقب النسخ ولقطات الشاشة',
+                appSubtitle: 'تطبيق شامل لمراقبة وإدارة العناصر المنسوخة',
+                statusTitle: 'حالة المراقبة',
+                statusActive: 'نشط',
+                statusInactive: 'غير نشط',
+                monitorBtnActive: 'إيقاف المراقبة',
+                monitorBtnInactive: 'تفعيل المراقبة',
+                textBtnText: 'النصوص المنسوخة',
+                imageBtnText: 'الصور المنسوخة',
+                textWindowTitle: 'النصوص المنسوخة',
+                imageWindowTitle: 'الصور المنسوخة',
+                backBtn: 'العودة',
+                selectAllTexts: 'تحديد الكل',
+                copySelected: 'نسخ المحدد',
+                deleteSelected: 'حذف المحدد',
+                refresh: 'تحديث',
+                sortOldest: 'الأقدم أولاً',
+                sortNewest: 'الأحدث أولاً',
+                searchTexts: 'البحث في النصوص...',
+                searchImages: 'البحث في الصور...',
+                noTexts: 'لا توجد نصوص منسوخة بعد',
+                noImages: 'لا توجد صور منسوخة بعد',
+                copy: 'نسخ',
+                delete: 'حذف',
+                edit: 'تعديل',
+                editName: 'تعديل الاسم'
+            },
+            en: {
+                appTitle: 'Clipboard & Screenshot Monitor',
+                appSubtitle: 'Comprehensive app for monitoring and managing copied items',
+                statusTitle: 'Monitoring Status',
+                statusActive: 'Active',
+                statusInactive: 'Inactive',
+                monitorBtnActive: 'Stop Monitoring',
+                monitorBtnInactive: 'Start Monitoring',
+                textBtnText: 'Copied Texts',
+                imageBtnText: 'Copied Images',
+                textWindowTitle: 'Copied Texts',
+                imageWindowTitle: 'Copied Images',
+                backBtn: 'Back',
+                selectAllTexts: 'Select All',
+                copySelected: 'Copy Selected',
+                deleteSelected: 'Delete Selected',
+                refresh: 'Refresh',
+                sortOldest: 'Oldest First',
+                sortNewest: 'Newest First',
+                searchTexts: 'Search texts...',
+                searchImages: 'Search images...',
+                noTexts: 'No copied texts yet',
+                noImages: 'No copied images yet',
+                copy: 'Copy',
+                delete: 'Delete',
+                edit: 'Edit',
+                editName: 'Edit Name'
+            }
+        };
+
+        // تبديل المراقبة
+        function toggleMonitoring() {
+            isMonitoring = !isMonitoring;
+            updateMonitoringStatus();
+            
+            if (isMonitoring) {
+                startMonitoring();
+            } else {
+                stopMonitoring();
+            }
+        }
+
+        function updateMonitoringStatus() {
+            const indicator = document.getElementById('statusIndicator');
+            const label = document.getElementById('statusLabel');
+            const btn = document.getElementById('monitorBtn');
+            const btnText = document.getElementById('monitorBtnText');
+            
+            if (isMonitoring) {
+                indicator.className = 'status-indicator status-active';
+                label.textContent = translations[currentLanguage].statusActive;
+                btn.className = 'btn btn-danger';
+                btnText.textContent = translations[currentLanguage].monitorBtnActive;
+            } else {
+                indicator.className = 'status-indicator status-inactive';
+                label.textContent = translations[currentLanguage].statusInactive;
+                btn.className = 'btn btn-primary';
+                btnText.textContent = translations[currentLanguage].monitorBtnInactive;
+            }
+        }
+
+        // بدء المراقبة
+        function startMonitoring() {
+            // محاكاة مراقبة النصوص المنسوخة
+            monitoringInterval = setInterval(() => {
+                if (isMonitoring) {
+                    simulateTextCopy();
+                }
+            }, 10000); // كل 10 ثواني
+
+            // محاكاة مراقبة لقطات الشاشة
+            screenshotInterval = setInterval(() => {
+                if (isMonitoring) {
+                    simulateScreenshot();
+                }
+            }, 15000); // كل 15 ثانية
+        }
+
+        function stopMonitoring() {
+            // إيقاف الفواصل الزمنية
+            if (monitoringInterval) {
+                clearInterval(monitoringInterval);
+            }
+            if (screenshotInterval) {
+                clearInterval(screenshotInterval);
+            }
+        }
+
+        // محاكاة نسخ النصوص
+        function simulateTextCopy() {
+            const sampleTexts = [
+                'هذا نص تجريبي تم نسخه من التطبيق',
+                'This is a sample copied text',
+                'نص آخر يحتوي على معلومات مهمة',
+                'Another text with important information',
+                'رقم هاتف: ٠٥٠١٢٣٤٥٦٧',
+                'Email: example@domain.com'
+            ];
+            
+            const randomText = sampleTexts[Math.floor(Math.random() * sampleTexts.length)];
+            addCopiedText(randomText);
+        }
+
+        // محاكاة لقطة شاشة
+        function simulateScreenshot() {
+            // إنشاء صورة تجريبية باستخدام Canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 300;
+            const ctx = canvas.getContext('2d');
+            
+            // رسم خلفية عشوائية
+            const gradient = ctx.createLinearGradient(0, 0, 400, 300);
+            gradient.addColorStop(0, `hsl(${Math.random() * 360}, 70%, 80%)`);
+            gradient.addColorStop(1, `hsl(${Math.random() * 360}, 70%, 60%)`);
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 400, 300);
+            
+            // إضافة نص
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('لقطة شاشة تجريبية', 200, 150);
+            
+            const imageData = canvas.toDataURL();
+            addCopiedImage(imageData);
+        }
+
+        // إضافة نص منسوخ
+        function addCopiedText(text) {
+            const textItem = {
+                id: textIdCounter++,
+                content: text,
+                timestamp: new Date()
+            };
+            
+            copiedTexts.unshift(textItem);
+            
+            if (document.getElementById('textWindow').classList.contains('active')) {
+                renderTexts();
+            }
+        }
+
+        // إضافة صورة منسوخة
+        function addCopiedImage(imageData, customName = null) {
+            const imageItem = {
+                id: imageIdCounter++,
+                data: imageData,
+                name: customName || `لقطة شاشة ${imageIdCounter}`,
+                timestamp: new Date()
+            };
+            
+            copiedImages.unshift(imageItem);
+            
+            if (document.getElementById('imageWindow').classList.contains('active')) {
+                renderImages();
+            }
+        }
+
+        // عرض النوافذ
+        function showMainInterface() {
+            document.getElementById('mainInterface').style.display = 'block';
+            document.getElementById('textWindow').classList.remove('active');
+            document.getElementById('imageWindow').classList.remove('active');
+        }
+
+        function showTextWindow() {
+            document.getElementById('mainInterface').style.display = 'none';
+            document.getElementById('textWindow').classList.add('active');
+            document.getElementById('imageWindow').classList.remove('active');
+            renderTexts();
+        }
+
+        function showImageWindow() {
+            document.getElementById('mainInterface').style.display = 'none';
+            document.getElementById('textWindow').classList.remove('active');
+            document.getElementById('imageWindow').classList.add('active');
+            renderImages();
+        }
+
+        // عرض النصوص
+        function renderTexts() {
+            const container = document.getElementById('textContent');
+            const searchTerm = document.getElementById('textSearch').value.toLowerCase();
+            
+            let filteredTexts = copiedTexts;
+            if (searchTerm) {
+                filteredTexts = copiedTexts.filter(item => 
+                    item.content.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (filteredTexts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📝</div>
+                        <p>${translations[currentLanguage].noTexts}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredTexts.map(item => `
+                <div class="content-item" data-id="${item.id}">
+                    <div class="item-controls">
+                        <input type="checkbox" class="checkbox" data-id="${item.id}">
+                        <button class="btn-small btn-copy" onclick="copyText('${item.id}')">${translations[currentLanguage].copy}</button>
+                        <button class="btn-small btn-delete" onclick="deleteText('${item.id}')">${translations[currentLanguage].delete}</button>
+                    </div>
+                    <div class="item-text">${item.content}</div>
+                    <div class="item-timestamp">${item.timestamp.toLocaleString(currentLanguage === 'ar' ? 'ar-SA' : 'en-US')}</div>
+                </div>
+            `).join('');
+        }
+
+        // عرض الصور
+        function renderImages() {
+            const container = document.getElementById('imageContent');
+            const searchTerm = document.getElementById('imageSearch').value.toLowerCase();
+            
+            let filteredImages = copiedImages;
+            if (searchTerm) {
+                filteredImages = copiedImages.filter(item => 
+                    item.name.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (filteredImages.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">🖼️</div>
+                        <p>${translations[currentLanguage].noImages}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredImages.map(item => `
+                <div class="content-item" data-id="${item.id}">
+                    <div class="item-controls">
+                        <input type="checkbox" class="checkbox" data-id="${item.id}">
+                        <button class="btn-small btn-copy" onclick="copyImage('${item.id}')">${translations[currentLanguage].copy}</button>
+                        <button class="btn-small btn-edit" onclick="editImageName('${item.id}')">${translations[currentLanguage].edit}</button>
+                        <button class="btn-small btn-delete" onclick="deleteImage('${item.id}')">${translations[currentLanguage].delete}</button>
+                    </div>
+                    <img src="${item.data}" alt="${item.name}" class="item-image" onclick="viewImage('${item.data}')">
+                    <div><strong>${item.name}</strong></div>
+                    <div class="item-timestamp">${item.timestamp.toLocaleString(currentLanguage === 'ar' ? 'ar-SA' : 'en-US')}</div>
+                </div>
+            `).join('');
+        }
+
+        // وظائف النصوص
+        function copyText(id) {
+            const text = copiedTexts.find(item => item.id == id);
+            if (text) {
+                navigator.clipboard.writeText(text.content);
+                alert(currentLanguage === 'ar' ? 'تم نسخ النص' : 'Text copied');
+            }
+        }
+
+        function deleteText(id) {
+            copiedTexts = copiedTexts.filter(item => item.id != id);
+            renderTexts();
+        }
+
+        function selectAllTexts() {
+            const checkboxes = document.querySelectorAll('#textContent .checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+        }
+
+        function copySelectedTexts() {
+            const selected = getSelectedTexts();
+            if (selected.length > 0) {
+                const combinedText = selected.map(item => item.content).join('\n\n');
+                navigator.clipboard.writeText(combinedText);
+                alert(currentLanguage === 'ar' ? `تم نسخ ${selected.length} نص` : `${selected.length} texts copied`);
+            }
+        }
+
+        function deleteSelectedTexts() {
+            const selectedIds = getSelectedTextIds();
+            copiedTexts = copiedTexts.filter(item => !selectedIds.includes(item.id));
+            renderTexts();
+        }
+
+        function getSelectedTexts() {
+            const selectedIds = getSelectedTextIds();
+            return copiedTexts.filter(item => selectedIds.includes(item.id));
+        }
+
+        function getSelectedTextIds() {
+            const checkboxes = document.querySelectorAll('#textContent .checkbox:checked');
+            return Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
+        }
+
+        function refreshTexts() {
+            renderTexts();
+        }
+
+        function sortTexts(order) {
+            copiedTexts.sort((a, b) => {
+                if (order === 'asc') {
+                    return a.timestamp - b.timestamp;
+                } else {
+                    return b.timestamp - a.timestamp;
+                }
+            });
+            renderTexts();
+        }
+
+        // وظائف الصور
+        function copyImage(id) {
+            const image = copiedImages.find(item => item.id == id);
+            if (image) {
+                // في التطبيق الحقيقي، يمكن نسخ الصورة إلى الحافظة
+                alert(currentLanguage === 'ar' ? 'تم نسخ الصورة' : 'Image copied');
+            }
+        }
+
+        function deleteImage(id) {
+            copiedImages = copiedImages.filter(item => item.id != id);
+            renderImages();
+        }
+
+        function editImageName(id) {
+            const image = copiedImages.find(item => item.id == id);
+            if (image) {
+                const newName = prompt(
+                    currentLanguage === 'ar' ? 'أدخل اسم الصورة الجديد:' : 'Enter new image name:',
+                    image.name
+                );
+                if (newName && newName.trim()) {
+                    image.name = newName.trim();
+                    renderImages();
+                }
+            }
+        }
+
+        function selectAllImages() {
+            const checkboxes = document.querySelectorAll('#imageContent .checkbox');
+            checkboxes.forEach(cb => cb.checked = true);
+        }
+
+        function copySelectedImages() {
+            const selected = getSelectedImages();
+            if (selected.length > 0) {
+                alert(currentLanguage === 'ar' ? `تم نسخ ${selected.length} صورة` : `${selected.length} images copied`);
+            }
+        }
+
+        function deleteSelectedImages() {
+            const selectedIds = getSelectedImageIds();
+            copiedImages = copiedImages.filter(item => !selectedIds.includes(item.id));
+            renderImages();
+        }
+
+        function getSelectedImages() {
+            const selectedIds = getSelectedImageIds();
+            return copiedImages.filter(item => selectedIds.includes(item.id));
+        }
+
+        function getSelectedImageIds() {
+            const checkboxes = document.querySelectorAll('#imageContent .checkbox:checked');
+            return Array.from(checkboxes).map(cb => parseInt(cb.dataset.id));
+        }
+
+        function refreshImages() {
+            renderImages();
+        }
+
+        function sortImages(order) {
+            copiedImages.sort((a, b) => {
+                if (order === 'asc') {
+                    return a.timestamp - b.timestamp;
+                } else {
+                    return b.timestamp - a.timestamp;
+                }
+            });
+            renderImages();
+        }
+
+        function viewImage(imageSrc) {
+            // فتح الصورة في نافذة جديدة
+            const newWindow = window.open('', '_blank');
+            newWindow.document.write(`
+                <html>
+                    <head><title>عرض الصورة</title></head>
+                    <body style="margin:0; padding:20px; background:#f0f0f0; text-align:center;">
+                        <img src="${imageSrc}" style="max-width:100%; max-height:100vh; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.3);">
+                    </body>
+                </html>
+            `);
+        }
+
+        // تبديل اللغة
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'ar' ? 'en' : 'ar';
+            updateLanguage();
+        }
+
+        function updateLanguage() {
+            const isArabic = currentLanguage === 'ar';
+            
+            // تغيير اتجاه الصفحة
+            document.documentElement.setAttribute('lang', currentLanguage);
+            document.documentElement.setAttribute('dir', isArabic ? 'rtl' : 'ltr');
+            document.body.style.direction = isArabic ? 'rtl' : 'ltr';
+            
+            // تحديث النصوص
+            const t = translations[currentLanguage];
+            
+            document.getElementById('appTitle').textContent = t.appTitle;
+            document.getElementById('appSubtitle').textContent = t.appSubtitle;
+            document.getElementById('statusTitle').textContent = t.statusTitle;
+            document.getElementById('textBtnText').textContent = t.textBtnText;
+            document.getElementById('imageBtnText').textContent = t.imageBtnText;
+            document.getElementById('textWindowTitle').textContent = t.textWindowTitle;
+            document.getElementById('imageWindowTitle').textContent = t.imageWindowTitle;
+            document.getElementById('backBtn1').textContent = t.backBtn;
+            document.getElementById('backBtn2').textContent = t.backBtn;
+            
+            // تحديث أزرار الأدوات
+            document.getElementById('selectAllTextsBtn').textContent = t.selectAllTexts;
+            document.getElementById('copySelectedTextsBtn').textContent = t.copySelected;
+            document.getElementById('deleteSelectedTextsBtn').textContent = t.deleteSelected;
+            document.getElementById('refreshTextsBtn').textContent = t.refresh;
+            document.getElementById('sortTextsAscBtn').textContent = t.sortOldest;
+            document.getElementById('sortTextsDescBtn').textContent = t.sortNewest;
+            
+            document.getElementById('selectAllImagesBtn').textContent = t.selectAllTexts;
+            document.getElementById('copySelectedImagesBtn').textContent = t.copySelected;
+            document.getElementById('deleteSelectedImagesBtn').textContent = t.deleteSelected;
+            document.getElementById('refreshImagesBtn').textContent = t.refresh;
+            document.getElementById('sortImagesAscBtn').textContent = t.sortOldest;
+            document.getElementById('sortImagesDescBtn').textContent = t.sortNewest;
+            
+            // تحديث حقول البحث
+            document.getElementById('textSearch').placeholder = t.searchTexts;
+            document.getElementById('imageSearch').placeholder = t.searchImages;
+            
+            // تحديث زر اللغة
+            document.getElementById('langToggle').textContent = isArabic ? 'English' : 'العربية';
+            
+            // تحديث حالة المراقبة
+            updateMonitoringStatus();
+            
+            // إعادة عرض المحتوى
+            if (document.getElementById('textWindow').classList.contains('active')) {
+                renderTexts();
+            }
+            if (document.getElementById('imageWindow').classList.contains('active')) {
+                renderImages();
+            }
+            
+            // تحديث اتجاه حقول البحث
+            document.getElementById('textSearch').style.direction = isArabic ? 'rtl' : 'ltr';
+            document.getElementById('imageSearch').style.direction = isArabic ? 'rtl' : 'ltr';
+            document.getElementById('textSearch').style.textAlign = isArabic ? 'right' : 'left';
+            document.getElementById('imageSearch').style.textAlign = isArabic ? 'right' : 'left';
+        }
+
+        // إعداد مستمعي الأحداث للبحث
+        function initializeApp() {
+            // تحديث اللغة الأولية
+            updateLanguage();
+            
+            // إعداد مستمعي أحداث البحث
+            const textSearch = document.getElementById('textSearch');
+            const imageSearch = document.getElementById('imageSearch');
+            
+            if (textSearch) {
+                textSearch.addEventListener('input', renderTexts);
+            }
+            if (imageSearch) {
+                imageSearch.addEventListener('input', renderImages);
+            }
+            
+            // إضافة بعض البيانات التجريبية
+            setTimeout(() => {
+                addCopiedText('مرحباً بك في تطبيق مراقبة النسخ');
+                addCopiedText('Welcome to the clipboard monitor app');
+                addCopiedText('هذا نص تجريبي باللغة العربية يحتوي على معلومات مهمة');
+                addCopiedText('This is a sample text in English with important information');
+                simulateScreenshot();
+                simulateScreenshot();
+            }, 1000);
+        }
+
+        // تشغيل التطبيق عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+        // وظائف إضافية للتحسين
+        
+        // نسخ نص محدد
+        function selectText(element) {
+            if (window.getSelection) {
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(element);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            }
+        }
+
+        // تحسين التمرير السلس
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // حفظ الحالة في التخزين المحلي (محاكاة)
+        function saveState() {
+            // في التطبيق الحقيقي، يمكن حفظ البيانات
+            const state = {
+                texts: copiedTexts,
+                images: copiedImages,
+                language: currentLanguage,
+                monitoring: isMonitoring
+            };
+            console.log('State saved:', state);
+        }
+
+        // استعادة الحالة
+        function loadState() {
+            // في التطبيق الحقيقي، يمكن استعادة البيانات المحفوظة
+            console.log('State loaded');
+        }
+
+        // تحديث دوري للبيانات
+        setInterval(() => {
+            if (isMonitoring) {
+                saveState();
+            }
+        }, 30000); // حفظ كل 30 ثانية
+
+        // إضافة تأثيرات بصرية عند النقر
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn')) {
+                    e.target.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        e.target.style.transform = '';
+                    }, 150);
+                }
+            });
+        });
+
+        // تحسين الأداء - إزالة العناصر القديمة
+        function cleanupOldItems() {
+            const maxItems = 1000;
+            
+            if (copiedTexts.length > maxItems) {
+                copiedTexts = copiedTexts.slice(0, maxItems);
+            }
+            
+            if (copiedImages.length > maxItems) {
+                copiedImages = copiedImages.slice(0, maxItems);
+            }
+        }
+
+        // تشغيل التنظيف كل 5 دقائق
+        setInterval(cleanupOldItems, 300000);
+
+        // Service Worker للعمل بدون انترنت
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                const swCode = `
+                const CACHE_NAME = 'clipboard-monitor-v1';
+                const urlsToCache = [
+                    '/',
+                    '/index.html'
+                ];
+
+                self.addEventListener('install', function(event) {
+                    event.waitUntil(
+                        caches.open(CACHE_NAME)
+                            .then(function(cache) {
+                                return cache.addAll(urlsToCache);
+                            })
+                    );
+                });
+
+                self.addEventListener('fetch', function(event) {
+                    event.respondWith(
+                        caches.match(event.request)
+                            .then(function(response) {
+                                if (response) {
+                                    return response;
+                                }
+                                return fetch(event.request);
+                            }
+                        )
+                    );
+                });
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(function(registration) {
+                        console.log('Service Worker registered successfully');
+                    })
+                    .catch(function(error) {
+                        console.log('Service Worker registration failed');
+                    });
+            });
+        }
+
+        // حفظ البيانات محلياً (بديل localStorage)
+        let appData = {
+            texts: [],
+            images: [],
+            settings: {
+                language: 'ar',
+                monitoring: false
+            }
+        };
+
+        // حفظ البيانات في الذاكرة
+        function saveToMemory() {
+            appData.texts = copiedTexts;
+            appData.images = copiedImages;
+            appData.settings.language = currentLanguage;
+            appData.settings.monitoring = isMonitoring;
+        }
+
+        // استعادة البيانات من الذاكرة
+        function loadFromMemory() {
+            if (appData.texts.length > 0) {
+                copiedTexts = appData.texts;
+            }
+            if (appData.images.length > 0) {
+                copiedImages = appData.images;
+            }
+            currentLanguage = appData.settings.language;
+            isMonitoring = appData.settings.monitoring;
+        }
+
+        // تحديث دوري لحفظ البيانات
+        setInterval(saveToMemory, 10000); // كل 10 ثوان
+
+        // استعادة البيانات عند بدء التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFromMemory();
+        });
+
+        // إظهار حالة الاتصال
+        function updateConnectionStatus() {
+            const isOnline = navigator.onLine;
+            const statusEl = document.createElement('div');
+            statusEl.id = 'connection-status';
+            statusEl.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: ${isOnline ? '#4CAF50' : '#f44336'};
+                color: white;
+                text-align: center;
+                padding: 5px;
+                font-size: 14px;
+                z-index: 1000;
+                transform: translateY(${isOnline ? '-100%' : '0'});
+                transition: transform 0.3s ease;
+            `;
+            statusEl.textContent = isOnline ? 'متصل' : 'غير متصل - يعمل بدون انترنت';
+            
+            // إزالة الحالة السابقة
+            const existing = document.getElementById('connection-status');
+            if (existing) existing.remove();
+            
+            document.body.appendChild(statusEl);
+            
+            if (!isOnline) {
+                setTimeout(() => {
+                    statusEl.style.transform = 'translateY(-100%)';
+                }, 3000);
+            }
+        }
+
+        // مراقبة حالة الاتصال
+        window.addEventListener('online', updateConnectionStatus);
+        window.addEventListener('offline', updateConnectionStatus);
+
+        // فحص أولي لحالة الاتصال
+        setTimeout(updateConnectionStatus, 1000);
+    </script>
+</body>
+</html>
